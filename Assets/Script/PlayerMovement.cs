@@ -15,6 +15,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpPower = 15f;
     [SerializeField] private LayerMask platformLayer;
 
+    public float knockbackVelocity = 5f;
+    public float knockbackTimer;
+    public float knocbackDuration = .2f;
+    public bool knockedFromRight;
+
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -46,8 +51,26 @@ public class PlayerMovement : MonoBehaviour
 
     void Run()
     {
-        Vector2 playerVelocity = new Vector2 (moveInput.x*runSpeed, myRigidbody.velocity.y);
-        myRigidbody.velocity = playerVelocity; 
+        if(knockbackTimer <= 0)
+        {
+            Vector2 playerVelocity = new Vector2 (moveInput.x*runSpeed, myRigidbody.velocity.y);
+            myRigidbody.velocity = playerVelocity; 
+        }
+        else
+        {
+            if(knockedFromRight)
+            {
+                Vector2 playerVelocity = new Vector2 (-knockbackVelocity, knockbackVelocity);
+                myRigidbody.velocity = playerVelocity; 
+            }
+            else
+            {
+                Vector2 playerVelocity = new Vector2 (knockbackVelocity, knockbackVelocity);
+                myRigidbody.velocity = playerVelocity; 
+            }
+
+            knockbackTimer -= Time.deltaTime;
+        }
     }
 
     void FlipSprite()
