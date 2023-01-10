@@ -8,11 +8,11 @@ public class PlayerDamage : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.collider.gameObject.transform.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
         }
-        else if(collision.gameObject.tag == "WeakPoint")
+        else if(collision.collider.gameObject.transform.tag == "WeakPoint")
         {
             collision.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage*2);
         }

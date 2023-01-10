@@ -15,9 +15,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float jumpPower = 15f;
     [SerializeField] private LayerMask platformLayer;
+    
     [SerializeField] GameObject arrow; 
     [SerializeField] Transform bow; 
+    public float attackCooldown = 2f;
+    private float attackTimer;
   
+    public float knockbackVelocity = 5f;
+    public float knockbackTimer;
+    public float knocbackDuration = .2f;
+    public bool knockedFromRight;
 
     void Awake()
     {
@@ -32,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
         Run();
         FlipSprite();
         anim.SetBool("isRunning", moveInput.x != 0);
+
+        if(attackTimer > 0)
+            attackTimer -= Time.deltaTime;
     }
 
     void OnMove(InputValue value)
@@ -47,22 +57,39 @@ public class PlayerMovement : MonoBehaviour
             }
     }
 
-    void OnFire(InputValue value)
+    void OnFire()
     {
-        fireInput = value.Get<float>();
-        Instantiate(arrow, bow.position, transform.rotation);
-        anim.SetBool("isShooting", fireInput != 0);
-        if (fireInput == 1)
+        if(attackTimer <= 0)
         {
-            anim.SetBool("isShooting", fireInput == 0);
+            Instantiate(arrow, bow.position, transform.rotation);
+            anim.SetTrigger("isShooting");
+
+            attackTimer = attackCooldown;
         }
-        //anim.SetBool("isShooting", false);
     }
 
     void Run()
     {
-        Vector2 playerVelocity = new Vector2 (moveInput.x*runSpeed, myRigidbody.velocity.y);
-        myRigidbody.velocity = playerVelocity; 
+        if(knockbackTimer <= 0)
+        {
+            Vector2 playerVelocity = new Vector2 (moveInput.x*runSpeed, myRigidbody.velocity.y);
+            myRigidbody.velocity = playerVelocity; 
+        }
+        else
+        {
+            if(knockedFromRight)
+            {
+                Vector2 playerVelocity = new Vector2 (-knockbackVelocity, knockbackVelocity);
+                myRigidbody.velocity = playerVelocity; 
+            }
+            else
+            {
+                Vector2 playerVelocity = new Vector2 (knockbackVelocity, knockbackVelocity);
+                myRigidbody.velocity = playerVelocity; 
+            }
+
+            knockbackTimer -= Time.deltaTime;
+        }
     }
 
     void FlipSprite()
