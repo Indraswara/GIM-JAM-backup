@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 198286288}
   - component: {fileID: 8440299767075941794}
   - component: {fileID: 198286290}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StandardHitBox
   m_TagString: WeakPoint
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 1663451506577344153}
   - component: {fileID: 718036927631916697}
   - component: {fileID: 1663451506577344160}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'Enemy '
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     Vector2 moveInput; 
     Vector2 jumpInput;
+    float fireInput;
     Rigidbody2D myRigidbody;
     BoxCollider2D boxCollider;
     Animator anim;
@@ -14,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float jumpPower = 15f;
     [SerializeField] private LayerMask platformLayer;
+    [SerializeField] GameObject arrow; 
+    [SerializeField] Transform bow; 
+  
 
     void Awake()
     {
@@ -27,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Run();
         FlipSprite();
-
         anim.SetBool("isRunning", moveInput.x != 0);
     }
 
@@ -42,6 +45,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpPower);
             }
+    }
+
+    void OnFire(InputValue value)
+    {
+        fireInput = value.Get<float>();
+        Instantiate(arrow, bow.position, transform.rotation);
+        anim.SetBool("isShooting", fireInput != 0);
+        if (fireInput == 1)
+        {
+            anim.SetBool("isShooting", fireInput == 0);
+        }
+        //anim.SetBool("isShooting", false);
     }
 
     void Run()
