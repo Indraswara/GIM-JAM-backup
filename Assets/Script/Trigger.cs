@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-    /*[SerializeField] private Transform previousRoom;
-    [SerializeField] private Transform nextRoom;
-    [SerializeField] private CameraController cam;
+    [SerializeField] private GameObject monster;
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag == "Player")
-            cam.MoveToNewRoom(nextRoom);
-    }*/
+        if(other.gameObject.tag == "Player")
+            monster.gameObject.SetActive(true);
+    }
 }

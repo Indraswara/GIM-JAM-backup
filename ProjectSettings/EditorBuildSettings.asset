@@ -9,7 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Scene Indra.unity
+    path: Assets/Scenes/TestRoom.unity
     guid: ec02a7d1eb0a08a4c8f0e591e5cf7722
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: e197f75503096814b8db378da5862e1d
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 7bc09d180e1cae6459eae70db97fad32
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 3412bb3b03f68824b843ceba6588affc, type: 2}

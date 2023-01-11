@@ -8,6 +8,7 @@ public class ItemCollector : MonoBehaviour
     private int coins = 0;
 
     [SerializeField] private TextMeshProUGUI coinsText;
+    [SerializeField] private GameObject portal;
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -16,6 +17,11 @@ public class ItemCollector : MonoBehaviour
             other.gameObject.SetActive(false);
             coins++;
             coinsText.text = "Coins: " + coins;
+        }
+
+        if(coins == 10)
+        {
+            portal.gameObject.SetActive(true);
         }
     }
 }
