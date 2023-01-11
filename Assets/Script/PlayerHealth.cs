@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -18,11 +19,19 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage; 
-        healthText.text = "Health: " + health;
         
         if(health <= 0)
         {
+            healthText.text = "Health: 0";
             gameObject.SetActive(false);
+            Invoke("RestartLevel", 1);
         }
+        else
+            healthText.text = "Health: " + health;
+    }
+
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
