@@ -8,6 +8,7 @@ public class Arrow : MonoBehaviour
     Rigidbody2D myRigidBody;
     PlayerMovement player; 
     float xSpeed;
+    [SerializeField] int damage; 
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class Arrow : MonoBehaviour
     {
         if(other.collider.gameObject.transform.tag == "Enemy" || other.collider.gameObject.transform.tag == "WeakPoint")
         {
-            other.gameObject.SetActive(false);
+            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
         }
         Destroy(gameObject);
     }
